@@ -1,0 +1,11 @@
+.git
+.gitignore
+node_modules
+data
+dist
+.next
+.vinext
+.wrangler
+reference/rules/coc
+*.log
+.env*

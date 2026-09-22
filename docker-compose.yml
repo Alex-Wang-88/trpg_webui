@@ -1,0 +1,28 @@
+services:
+  web:
+    build: .
+    command: npm run start
+    environment:
+      PORT: 3000
+    ports:
+      - "5188:3000"
+    depends_on:
+      - api
+
+  api:
+    build: .
+    command: node server/index.mjs
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: 8788
+      CORS_ORIGIN: http://localhost:5188
+      SQLITE_PATH: /app/data/night-table.sqlite
+      ASSET_DIR: /app/data/assets
+      APP_MASTER_KEY: ${APP_MASTER_KEY:?Set APP_MASTER_KEY before starting the stack}
+    ports:
+      - "8788:8788"
+    volumes:
+      - night_table_data:/app/data
+
+volumes:
+  night_table_data:
